@@ -26,7 +26,6 @@ def portfolio(request):
     if stocks:
         symbols = [s[1] for s in stocks]
         data = get_current_info(symbols)
-        print data
         infos = [data] if data.__class__ == dict else data
         for i, v in enumerate(infos):
             v.update({'pk': stocks[i][0]})
