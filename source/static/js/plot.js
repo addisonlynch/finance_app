@@ -8,7 +8,6 @@
       date = $(this).children('td.date').text().trim();
       date = date.split(/-/gm);
       date = Date.UTC(parseFloat(date[0]), parseFloat(date[1])-1, parseFloat(date[2]));
-      console.log(date)
       point.push(date);
       value = $(this).children('td.value').text().trim();
       value = value.substr(1);
