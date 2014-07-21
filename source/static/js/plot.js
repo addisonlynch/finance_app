@@ -43,13 +43,13 @@
         }]
       },
       title : {
-      text : 'Portfolio vs Time'
+        text : 'Portfolio vs Time'
       },
       series : [{
-      name : 'Portfolio Value',
-      data : data,
-      tooltip: {
-        valueDecimals: 2
+        name : 'Portfolio Value',
+        data : data,
+        tooltip: {
+          valueDecimals: 2
         }
       }],
       xAxis: {
