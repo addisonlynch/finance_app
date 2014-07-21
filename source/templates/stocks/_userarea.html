@@ -1,0 +1,26 @@
+{% load i18n %}
+<ul class="nav nav-tabs nav-justified" role="tablist">
+    {% url "portfolio" as path %}
+    <li {% if path == request.path %}class="active"{% endif %}>
+        <a href="{{ path }}">
+            {% trans "Portfolio" %}
+        </a>
+    </li>
+    {% url "historical" as path %}
+    <li {% if path == request.path %}class="active"{% endif %}>
+        <a href="{{ path }}">
+            {% trans "Download historic data" %}
+        </a>
+    </li>
+    {% url "plot" as path %}
+    <li {% if path == request.path %}class="active"{% endif %}>
+        <a href="{{ path }}">
+            {% trans "Plot & Table" %}
+        </a>
+    </li>
+    <li>
+        <a href={% url "logout" %}>
+            {% trans "Logout" %}
+        </a>
+    </li>
+</ul>
