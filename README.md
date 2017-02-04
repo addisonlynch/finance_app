@@ -1,8 +1,8 @@
 Finance app
 =====
 Django application for managing stocks and view portfolio vs time plot
-![ScreenShot1](https://dl.dropboxusercontent.com/u/20988720/github/finance/plot.png)
-![ScreenShot1](https://dl.dropboxusercontent.com/u/20988720/github/finance/portfolio.png)
+![ScreenShot1](http://mishurov.5gbfree.com/github/finance/plot.png)
+![ScreenShot1](http://mishurov.5gbfree.com/github/finance/portfolio.png)
 
 ## Installation and running
 ```bash
