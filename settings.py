@@ -5,7 +5,7 @@ SECRET_KEY = 'ful6vecf4*z%6#%mkn6zdedmtg8f)d*%5wcp#&=n+4gelbruum'
 DEBUG = True
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['4a58f592.ngrok.io',]
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -15,7 +15,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'utils',
-    'stocks'
+    'stocks',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -54,24 +54,26 @@ STATICFILES_FINDERS = (
 )
 
 
-TEMPLATE_DIRS = (
-    os.path.join(PROJECT_ROOT, 'templates')
-)
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-)
-
-TEMPLATE_CONTEXT_PROCESSORS = (
+TEMPLATES = [{
+    'BACKEND' : 'django.template.backends.django.DjangoTemplates',
+    'DIRS' : [os.path.join(PROJECT_ROOT, 'templates')],
+    'APP_DIRS' : True,
+    'OPTIONS' : { 
+        'context_processors' : [
     "django.contrib.auth.context_processors.auth",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    "django.core.context_processors.static",
-    "django.core.context_processors.tz",
+    "django.template.context_processors.debug",
+    "django.template.context_processors.i18n",
+    "django.template.context_processors.media",
+    "django.template.context_processors.static",
+    "django.template.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
-    'django.core.context_processors.request',
-)
+    'django.template.context_processors.request',
+        ],
+        'debug':DEBUG,
+
+    }
+    }
+]
 
 FIXTURE_DIRS = (
     os.path.join(PROJECT_ROOT, 'fixtures'),

@@ -1,6 +1,6 @@
 """A wrapper for the Yahoo! Finance YQL api."""
 
-import sys, httplib, urllib, datetime
+import sys, http.client, urllib, datetime
 
 try: import simplejson as json
 except ImportError: import json
@@ -18,7 +18,7 @@ FINANCE_TABLES = {'quotes': 'yahoo.finance.quotes',
 
 
 def executeYQLQuery(yql):
-    conn = httplib.HTTPConnection('query.yahooapis.com')
+    conn = http.client.HTTPConnection('query.yahooapis.com')
     queryString = urllib.urlencode({'q': yql, 'format': 'json', 'env': DATATABLES_URL})
     conn.request('GET', PUBLIC_API_URL + '?' + queryString)
     return json.loads(conn.getresponse().read())
@@ -144,9 +144,8 @@ def get_industry_index(id):
 
 if __name__ == "__main__":
     try:
-        print get_current_info(sys.argv[1:])
+        print (get_current_info(sys.argv[1:]))
         #print get_industry_ids()
         #get_news_feed('yhoo')
-    except QueryError, e:
-        print e
+    except QueryError:
         sys.exit(2)
