@@ -68,7 +68,7 @@
     </tbody>
     </table>
 {% endif %}
-<form method="post" action="{% url 'portfolio' %}" class="form-inline">
+<form method="post" action="{% url 'watch_list' %}" class="form-inline">
     <div class="form-group">
     {% csrf_token %}<br>
     {% for field in form %}

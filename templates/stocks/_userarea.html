@@ -1,9 +1,9 @@
 {% load i18n %}
 <ul class="nav nav-tabs nav-justified" role="tablist">
-    {% url "portfolio" as path %}
+    {% url "watch_list" as path %}
     <li {% if path == request.path %}class="active"{% endif %}>
         <a href="{{ path }}">
-            {% trans "Portfolio" %}
+            {% trans "Watch List" %}
         </a>
     </li>
     {% url "historical" as path %}
