@@ -3,46 +3,66 @@ from pandas.tseries.offsets import BDay
 import pandas as pd
 import datetime
 from dateutil import rrule
-from nyse_date_utils import NYSE_holidays, NYSE_tradingdays, NYSE_trading_calendar
+
+import requests
+
+from yahoo_finance import Share
+
+#from nyse_date_utils import NYSE_holidays, NYSE_tradingdays, populate_list
+
+#from stocks.models import Stock 
+
+today = datetime.date.today() + datetime.timedelta(-1)
+last_month = datetime.date.today() + datetime.timedelta(-30)
+yesterday = datetime.date.today() + datetime.timedelta(-2)
+last_year = datetime.date.today() + datetime.timedelta(-365)
+
+todaysend = today #str(today.strftime('%Y-%m-%d'))
+yesterdaysend = yesterday#str(yesterday.strftime('%Y-%m-%d'))
+def get_all_data(symbol):
+	pass
+	#f = web.DataReader(symbol, 'yahoo', last_year, today)
+	#d = f.ix[today]
+	#print(d)
+
+def get_last(symbol):
+	return web.get_quote_yahoo(symbol).iloc[0]['last']
 
 
-rs = NYSE_trading_calendar()
+def get_name(symbol):
+	return (Share(symbol).get_name())
 
-l1 = list(rs)
+def get_current_info(symbols):
+	retval = []
+	for symbol in symbols:
+		g = web.DataReader(symbol, 'yahoo', yesterdaysend, todaysend)
+		f = g.round(2)
+		f.index = pd.to_datetime(f.index)
+		print(f)
+		d = f.ix[todaysend]
+		y = f.ix[yesterdaysend]
+		change = d['Close'] - y['Close']
+		PercentChange = (y['Close']/(y['Close']+change))
+		darr = d.to_dict()
+		darr['DaysHigh'] = darr.pop('High')
+		darr['DaysLow'] = darr.pop('Low')
+		darr.update({"Change" : change})
+		darr.update({"PercentChange" : round(PercentChange,2)})
+		darr.update({"Name" : get_name(symbol)})
+		darr.update({"Symbol" : symbol})
+		darr.update({"LastTradePriceOnly" : get_last(symbol)})
+		print(darr)
+		retval.append(darr)
+	return (retval)
 
-l2 = list(rs)
+def get_historical_info(symbol):
+	pass
 
-print(l1[1:50])
-#print(l2[-1])
-exit()
-today = pd.datetime.today()
-last_month = pd.datetime.today() + datetime.timedelta(-30)
-yesterday = pd.datetime.today() - BDay(1)
+def get_month_info(symbol):
+	pass 
 
-
-print(today)
-print(last_month)
-print(yesterday)
-
-def get_current_data(symbol):
-	f = web.DataReader(symbol, 'yahoo', yesterday-BDay(1), today)
-	d = f.ix[s]
-	print(d)
-
-
-get_current_data("TSLA")
 
 
 '''
-f = web.DataReader("TSLA", 'yahoo', start, end)
-d = f.ix[end]
-y = f.ix[start]
-change = d['Close'] - y['Close']
-PercentChange = float(y['Close']+change)/y['Close']
-
-darr = d.to_dict()
-darr.update({"Change" : change})
-darr.update({"PercentChange" : PercentChange})
-darr.update({"Name" : "blah"})
 
 print(darr)'''

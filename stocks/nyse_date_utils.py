@@ -1,4 +1,4 @@
-from dateutil import rrule 
+from dateutil import rrule
 import datetime
 
 # Generate ruleset for holiday observances on the NYSE
@@ -6,7 +6,7 @@ import datetime
 def NYSE_holidays(a=datetime.date.today(), b=datetime.date.today()+datetime.timedelta(days=365)):
     rs = rrule.rruleset()
 
-    # Include all potential holiday observances
+    # Include all potential holiday observances, DOES NOT INCLUDE EASTER
     rs.rrule(rrule.rrule(rrule.YEARLY, dtstart=a, until=b, bymonth=12, bymonthday=31, byweekday=rrule.FR)) # New Years Day  
     rs.rrule(rrule.rrule(rrule.YEARLY, dtstart=a, until=b, bymonth= 1, bymonthday= 1))                     # New Years Day  
     rs.rrule(rrule.rrule(rrule.YEARLY, dtstart=a, until=b, bymonth= 1, bymonthday= 2, byweekday=rrule.MO)) # New Years Day    
@@ -40,14 +40,9 @@ def NYSE_tradingdays(a=datetime.date.today(), b=datetime.date.today()+datetime.t
     
     return rs
 
-    
-def NYSE_trading_calendar(a =datetime.date.today(), b=datetime.date.today() + datetime.timedelta(days=365)):
-    rs = rrule.rruleset()
-    weekdays = list(NYSE_tradingdays(a,b))
-    holidays = list(NYSE_holidays(a,b))
-    def __diff(a, b):
-        b = set(b)
-        return [item for item in a if item not in b]
-
-    tc = __diff(weekdays, holidays)
-    return tc
+def populate_list(a=datetime.date.today()):
+    before = NYSE_tradingdays(a+datetime.timedelta(-365), a)
+    after =NYSE_tradingdays(a, a+datetime.timedelta(365))
+    fuller = list(set(before)|set(after))
+    final = sorted(fuller)
+    print(final[182])

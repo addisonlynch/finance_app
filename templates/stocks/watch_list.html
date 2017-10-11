@@ -45,7 +45,7 @@
             <td>
                 {{ i.LastTradePriceOnly }}
             </td>
-            <td style="color: {% if i.Change|first == '+' %}green{% else %}red{% endif %};">
+            <td style="color: {% if i.Change|first == '-' %}red{% else %}green{% endif %};">
                 {{ i.Change }} ({{ i.PercentChange}})
             </td>
             <td>

@@ -5,26 +5,10 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-#from stocks.stockretriever import get_historical_info, get_current_info, get_month_info
+from stocks.retriever import get_historical_info, get_current_info, get_month_info
 from stocks.forms import StockForm
 from stocks.models import Stock
 
-def get_current_info(symbolList):
-    retList = []
-    for symbol in symbolList:
-        retList.append({
-            'Symbol':symbol,
-            'Name': 'Tesla',
-            'LastTradePriceOnly': 353.46,
-            'Change':2.54,
-            'PercentChange':.035,
-            'Volume' : 36000000,
-            'Open' : 352.10,
-            'DaysHigh' : 355.10,
-            'DaysLow' : 348.90,
-            })
-
-    return retList
 
 
 @login_required
@@ -65,7 +49,7 @@ def historical(request):
         form = StockForm(request.POST)
         if form.is_valid():
             symbol = form.cleaned_data['symbol'].upper()
-            data = get_historical_info(symbol)
+            data = get_current_info(symbol)
             book = xlwt.Workbook()
             sheet = book.add_sheet('Sheet')
             for i, v in enumerate(data[0].keys()):
