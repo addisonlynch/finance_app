@@ -5,7 +5,7 @@ SECRET_KEY = 'ful6vecf4*z%6#%mkn6zdedmtg8f)d*%5wcp#&=n+4gelbruum'
 DEBUG = True
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['4a58f592.ngrok.io',]
+ALLOWED_HOSTS = ['627e203e.ngrok.io',]
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -16,6 +16,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'utils',
     'stocks',
+    'portfolio',
+    'rest_framework',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -30,9 +32,22 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'urls'
 WSGI_APPLICATION = 'wsgi.application'
 DATABASES = {
+
+#    'default': {
+#       'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'portfolios',
+#        'USER': 'djangouser',
+#        'PASSWORD': 'password',
+#        'HOST': 'localhost',
+#        'PORT': '3306',
+ #   },
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(PROJECT_ROOT, 'stocks.db'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'portfoliodb',
+        'USER': 'djangouser',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
@@ -80,3 +95,6 @@ FIXTURE_DIRS = (
 )
 
 LOGIN_REDIRECT_URL = '/'
+
+
+#DATABASE_ROUTERS = ['stocks.routers.StocksDatabaseRouter']

@@ -12,6 +12,14 @@ from yahoo_finance import Share
 
 #from stocks.models import Stock 
 
+indicies={
+
+	{ "nyse" : "http://www.nasdaq.com/screening/companies-by-name.aspx?letter=0&exchange=nyse&render=download" },
+	{ "nasdaq" : "http://www.nasdaq.com/screening/companies-by-name.aspx?letter=0&exchange=nasdaq&render=download" },
+	{ "amex" : "http://www.nasdaq.com/screening/companies-by-name.aspx?letter=0&exchange=amex&render=download" },
+}
+
+
 today = datetime.date.today() + datetime.timedelta(-1)
 last_month = datetime.date.today() + datetime.timedelta(-30)
 yesterday = datetime.date.today() + datetime.timedelta(-2)
@@ -19,6 +27,13 @@ last_year = datetime.date.today() + datetime.timedelta(-365)
 
 todaysend = today #str(today.strftime('%Y-%m-%d'))
 yesterdaysend = yesterday#str(yesterday.strftime('%Y-%m-%d'))
+
+
+def exchange_allstocks(symbol):
+	pass
+
+
+
 def get_all_data(symbol):
 	pass
 	#f = web.DataReader(symbol, 'yahoo', last_year, today)
@@ -32,14 +47,23 @@ def get_last(symbol):
 def get_name(symbol):
 	return (Share(symbol).get_name())
 
-def get_current_info(symbols):
-	retval = []
-	for symbol in symbols:
+def get_current_info(symbol):
+
+	retval = [
+	{'DaysHigh' : 350.50 },
+	{'DaysLow' : 348.50 },
+	{'Change' : 350.50 },
+	{'PercentChange' : 348.50 },
+	{'Symbol' : 350.50 },
+	{'LastTradePriceOnly' : 348.50 },
+	]
+	return retval
+	if symbol:
 		g = web.DataReader(symbol, 'yahoo', yesterdaysend, todaysend)
 		f = g.round(2)
 		f.index = pd.to_datetime(f.index)
 		print(f)
-		d = f.ix[todaysend]
+		d = f.ix[yesterdaysend]
 		y = f.ix[yesterdaysend]
 		change = d['Close'] - y['Close']
 		PercentChange = (y['Close']/(y['Close']+change))
@@ -60,6 +84,7 @@ def get_historical_info(symbol):
 
 def get_month_info(symbol):
 	pass 
+
 
 
 
