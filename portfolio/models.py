@@ -8,7 +8,8 @@ from stocks.models import Stock
 class Portfolio(models.Model):
 	user = models.ForeignKey(User)
 	stocks = models.ManyToManyField('stocks.Stock')
-	def addStock(self, symbol):
+
+	def add_coverage(self, symbol):
 		toadd = Stock.objects.get(symbol=symbol)
 		self.stocks.add(toadd)
 
