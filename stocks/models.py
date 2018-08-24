@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 
 class Stock(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     symbol = models.CharField(_('Symbol'), max_length=5)
 
 

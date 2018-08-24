@@ -2,7 +2,7 @@ try: import simplejson as json
 except ImportError: import json
 import xlwt
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from stocks.retriever import get_historical_info, get_current_info, get_month_info

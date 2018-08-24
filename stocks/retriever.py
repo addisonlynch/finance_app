@@ -6,7 +6,6 @@ from dateutil import rrule
 
 import requests
 
-from yahoo_finance import Share
 
 #from nyse_date_utils import NYSE_holidays, NYSE_tradingdays, populate_list
 
@@ -28,10 +27,6 @@ def get_all_data(symbol):
 def get_last(symbol):
 	return web.get_quote_yahoo(symbol).iloc[0]['last']
 
-
-def get_name(symbol):
-	return (Share(symbol).get_name())
-
 def get_current_info(symbols):
 	retval = []
 	for symbol in symbols:
@@ -48,7 +43,7 @@ def get_current_info(symbols):
 		darr['DaysLow'] = darr.pop('Low')
 		darr.update({"Change" : change})
 		darr.update({"PercentChange" : round(PercentChange,2)})
-		darr.update({"Name" : get_name(symbol)})
+		darr.update({"Name" : "Junk"})
 		darr.update({"Symbol" : symbol})
 		darr.update({"LastTradePriceOnly" : get_last(symbol)})
 		print(darr)
